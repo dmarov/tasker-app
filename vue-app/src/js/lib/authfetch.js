@@ -10,7 +10,7 @@ class AuthError extends Error {
 
 export default async function(url, params = {}, key = 'token') {
 
-    let token = sessionStorage.getItem(key);
+    let token = localStorage.getItem(key);
 
     if (token === null) throw new AuthError();
 

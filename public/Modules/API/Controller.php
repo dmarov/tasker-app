@@ -117,9 +117,9 @@ class Controller {
 
         $task->username = $patchedTask->username ?? $task->username;
         $task->email = $patchedTask->email ?? $task->email;
+        $task->edited = $patchedTask->text !== $task->text;
         $task->text = $patchedTask->text ?? $task->text;
         $task->status = $patchedTask->status ?? $task->status;
-        $task->edited = true;
 
         $task = $taskMapper->update($task);
 
