@@ -9,7 +9,7 @@ if (file_exists($envFile)) {
     if (is_array($env)) {
 
         foreach ($env as $key => $value)
-            putenv("${key}=${value}");
+            define($key, $value);
     }
 }
 

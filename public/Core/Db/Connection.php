@@ -9,12 +9,12 @@ class Connection {
 
     public function __construct() {
 
-        $host = getenv('DB_HOST');
-        $port = getenv('DB_PORT');
+        $host = DB_HOST;
+        $port = DB_PORT;
         if ($port === false) $port = '3306';
-        $user = getenv('DB_USER');
-        $password = getenv('DB_PASSWORD');
-        $db = getenv('DB_NAME');
+        $user = DB_USER;
+        $password = DB_PASSWORD;
+        $db = DB_NAME;
         $dsn = "mysql:host=${host};port=${port};dbname=${db}";
         $pdo = new \PDO($dsn, $user, $password);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
