@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "pattern": "^\\p{L}{1,100}"
+    },
+    "email": {
+      "type": "string",
+      "pattern": "^(.*)+@(.*)+\\.(.*)+$"
+    },
+    "text": {
+      "type": "string",
+      "pattern": "^\\p{L}{0,1000}"
+    }
+  },
+  "required": [
+    "username",
+    "email",
+    "text"
+  ],
+  "additionalProperties": false
+}
