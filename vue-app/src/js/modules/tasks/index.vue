@@ -1,8 +1,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Noty from 'noty';
-import Category from './item';
-import NewCategory from './creator';
+import Task from './item';
+import NewTask from './creator';
 import Pagination from './pagination';
 import Sorting from './sorting';
 
@@ -12,31 +12,31 @@ export default {
         ...mapGetters([
             'getParam'
         ]),
-        ...mapGetters('categories', [
-            'getCategories'
+        ...mapGetters('tasks', [
+            'getTasks'
         ]),
-        categories() {
+        tasks() {
 
-            return this.getCategories();
+            return this.getTasks();
         },
         lastPage() {
 
-            return this.categories.page.totalPages;
+            return Math.ceil(this.tasks.total / this.tasks.limit);
         },
     },
     components: {
-        'app-category': Category,
-        'new-category': NewCategory,
+        'app-task': Task,
+        'new-task': NewTask,
         'pagination': Pagination,
         'sorting': Sorting,
     },
     methods: {
-        ...mapActions('categories', [
-            'setCategoriesPage',
+        ...mapActions('tasks', [
+            'setTasksPage',
         ]),
         async setPage(page) {
 
-            this.setCategoriesPage(page);
+            this.setTasksPage(page);
         },
     },
     created() {
@@ -57,13 +57,13 @@ export default {
 
 <template lang='pug'>
 
-    .categories-content
-        new-category
+    .tasks-content
+        new-task
         sorting
-        .pagination-wrapper(v-if="categories")
+        .pagination-wrapper(v-if="tasks")
             pagination(:radius="2" :last-page="lastPage")
-        .categories(v-if="categories")
-            app-category(v-for="category in categories._embedded.items" :key="category.id" :id="category.id")
-        .pagination-wrapper(v-if="categories")
+        .tasks(v-if="tasks")
+            app-task(v-for="task in tasks._embedded.items" :key="task.id" :id="task.id")
+        .pagination-wrapper(v-if="tasks")
             pagination(:radius="2" :last-page="lastPage")
 </template>

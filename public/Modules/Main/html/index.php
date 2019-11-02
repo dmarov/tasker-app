@@ -5,7 +5,7 @@
         <title>Tasker</title>
     </head>
     <body>
-        <div id="app" api-link='<?= $path; ?>'></div>
+        <div id="app" data-api-link='<?= $path; ?>'></div>
     </body>
     <script src='/js/polyfills.js'></script>
     <script src='/js/app.js'></script>

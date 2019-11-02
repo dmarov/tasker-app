@@ -52,18 +52,18 @@ export default {
 </script>
 <template lang='pug'>
     .pagination
-        .pagination__item(@click='$router.push(`/categories/${Math.max(1, current - 1)}`)')
+        .pagination__item(@click='$router.push(`/tasks/${Math.max(1, current - 1)}`)')
             .pagination__link.pagination__link_prev
-        .pagination__item(@click='$router.push(`/categories/1`)' :class='getClass(1)')
+        .pagination__item(@click='$router.push(`/tasks/1`)' :class='getClass(1)')
             .pagination__link 1
         .pagination__item(v-if='(current - radius > 1 + 2)')
             .pagination__dots ...
-        .pagination__item(v-for='index in range' @click='$router.push(`/categories/${index}`)' :class='getClass(index)')
+        .pagination__item(v-for='index in range' @click='$router.push(`/tasks/${index}`)' :class='getClass(index)')
             .pagination__link {{ index }}
         .pagination__item(v-if='(current + radius < last - 2)')
             .pagination__dots ...
-        .pagination__item(@click='$router.push(`/categories/${last}`)' :class='getClass(last)' v-if='last > 1')
+        .pagination__item(@click='$router.push(`/tasks/${last}`)' :class='getClass(last)' v-if='last > 1')
             .pagination__link {{ last }}
-        .pagination__item(@click='$router.push(`/categories/${Math.min(last, current + 1)}`)')
+        .pagination__item(@click='$router.push(`/tasks/${Math.min(last, current + 1)}`)')
             .pagination__link.pagination__link_next
 </template>

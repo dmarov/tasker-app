@@ -3,9 +3,9 @@ import Noty from 'noty';
 
 export default {
 
-    async setCategoriesPage(context, page) {
+    async setTasksPage(context, page) {
 
-        let link = context.rootGetters.getParam('categories-link');
+        let link = context.rootGetters.getParam('api-link');
         let url = new URL(link, location.origin);
         url.searchParams.set('page', page - 1);
         url.searchParams.set('sort', context.getters.getSorting());
@@ -14,7 +14,7 @@ export default {
 
             let response = await authfetch(url);
             let result = await response.json();
-            context.commit('setCategories', result);
+            context.commit('setTasks', result);
 
         } catch(e) {
 
@@ -28,10 +28,10 @@ export default {
             } else throw e;
         }
     },
-    async patchCategory(context, { id, patch }) {
+    async patchTask(context, { id, patch }) {
 
-        let category = context.getters.getCategory(id);
-        let link = category._links.self.href;
+        let task = context.getters.getTask(id);
+        let link = task._links.self.href;
 
         let options = {
             method: 'PATCH',
@@ -46,11 +46,11 @@ export default {
             let response = await authfetch(link, options);
 
             if (response.ok) {
-                context.commit('patchCategory', { id, patch });
+                context.commit('patchTask', { id, patch });
             } else {
 
                 new Noty({
-                    text: "unable to patch category",
+                    text: "unable to patch task",
                     type: "error",
                 }).show();
             }
@@ -67,16 +67,16 @@ export default {
             } else throw e;
         }
     },
-    async refreshCategories(context) {
+    async refreshTasks(context) {
 
-        let categories = context.getters.getCategories();
-        let page = categories.page.number;
-        context.dispatch('setCategoriesPage', page + 1);
+        let tasks = context.getters.getTasks();
+        let page = tasks.page.number;
+        context.dispatch('setTasksPage', page + 1);
     },
-    async deleteCategory(context, id) {
+    async deleteTask(context, id) {
 
-        let category = context.getters.getCategory(id);
-        let link = category._links.self.href;
+        let task = context.getters.getTask(id);
+        let link = task._links.self.href;
 
         let options = {
             method: 'DELETE',
@@ -87,11 +87,11 @@ export default {
             let response = await authfetch(link, options);
 
             if (response.ok)
-                context.dispatch('refreshCategories');
+                context.dispatch('refreshTasks');
             else {
             
                 new Noty({
-                    text: 'unable to delete category',
+                    text: 'unable to delete task',
                     type: "error",
                 }).show();
             }
@@ -108,9 +108,9 @@ export default {
             } else throw e;
         }
     },
-    async appendCategory(context, { title, description }) {
+    async appendTask(context, { title, description }) {
 
-        let link = context.rootGetters.getParam('categories-link');
+        let link = context.rootGetters.getParam('api-link');
         let url = new URL(link, location.origin);
 
         let options = {
@@ -130,13 +130,13 @@ export default {
         if (!response.ok) {
 
             new Noty({
-                text: "unable to append category",
+                text: "unable to append task",
                 type: "error",
             }).show();
         } else {
-            context.dispatch('refreshCategories');
+            context.dispatch('refreshTasks');
             new Noty({
-                text: "category created",
+                text: "task created",
                 type: "success",
             }).show();
         }

@@ -12,63 +12,61 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('categories', [
-            'getCategory'
+        ...mapGetters('tasks', [
+            'getTask'
         ]),
-        category() {
-            return this.getCategory(this.id);
+        task() {
+            return this.getTask(this.id);
         },
-        title: {
+        username: {
             get() {
-                return this.category.title;
+                return this.task.username;
             },
             set(value) {
 
-                this.patchCategory({
+                this.patchTask({
                     id: this.id,
-                    patch: [{ op: 'add', path: "/title", value }],
+                    patch: [{ op: 'add', path: "/username", value }],
                 });
             },
         },
-        description: {
+        email: {
             get() {
-                return this.category.description;
+                return this.task.email;
             },
             set(value) {
 
-                this.patchCategory({
+                this.patchTask({
                     id: this.id,
-                    patch: [{ op: 'add', path: "/description", value }],
+                    patch: [{ op: 'add', path: "/email", value }],
+                });
+            },
+        },
+        text: {
+            get() {
+                return this.task.text;
+            },
+            set(value) {
+
+                this.patchTask({
+                    id: this.id,
+                    patch: [{ op: 'add', path: "/text", value }],
                 });
             },
         },
     },
     methods: {
-        ...mapActions('categories', [
-            'patchCategory',
-            'deleteCategory',
-        ]),
-        ...mapActions('category-products', [
-            'initCategory',
+        ...mapActions('tasks', [
+            'patchTask',
+            'deleteTask',
         ]),
         toggleEdit() {
 
             this.editable = !this.editable;
         },
-        openDeletePopup() {
-
-            this.$modal.show('dialog', {
-                title: 'delete category',
-                text: 'Are you sure about that?',
-                buttons: [
-                    { title: "Yes", handler: _ => { this.delete(); this.$modal.hide('dialog'); }},
-                    { title: "No", handler: _ => { this.$modal.hide('dialog'); }},
-                ],
-            });
-        },
         delete() {
 
-            this.deleteCategory(this.id);
+            this.deleteTask(this.id);
         },
     },
 }
@@ -77,11 +75,10 @@ export default {
 
 <template lang='pug'>
 
-    .category
-        input.category__title(v-model="title" :disabled="!editable")
-        textarea.category__description(v-model="description" :disabled="!editable")
-        button.category__button.category__button_delete(@click='toggleEdit()') {{ editable == true ? 'finish editing' : 'edit' }}
-        button.category__button.category__button_delete(@click='openDeletePopup()') Delete
-        button.category__button(@click="$router.push(`/categories/${id}/products`)") Show products
+    .task
+        input.task__username(v-model="username" :disabled="!editable")
+        input.task__email(v-model="email" :disabled="!editable")
+        textarea.task__text(v-model="text" :disabled="!editable")
+        button.task__button.task__button_delete(@click='toggleEdit()') {{ editable == true ? 'finish editing' : 'edit' }}
 
 </template>

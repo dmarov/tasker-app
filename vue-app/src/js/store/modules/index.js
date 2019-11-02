@@ -1,10 +1,6 @@
-import categories from "./categories";
-import products from "./products";
-import categoryProducts from "./category-products";
+import tasks from "./tasks";
 
 export default {
 
-    categories,
-    products,
-    'category-products': categoryProducts,
+    tasks,
 };

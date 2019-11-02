@@ -7,19 +7,21 @@ export default {
     data: _ => {
 
         return {
-            title: '',
-            description: '',
+            username: '',
+            email: '',
+            text: '',
         };
     },
     methods: {
-        ...mapActions('categories', [
-            'appendCategory',
+        ...mapActions('tasks', [
+            'appendTask',
         ]),
         append() {
 
-            this.appendCategory({
-                title: this.title,
-                description: this.description,
+            this.appendTask({
+                username: this.username,
+                email: this.email,
+                text: this.text,
             });
         },
     },
@@ -27,8 +29,9 @@ export default {
 
 </script>
 <template lang="pug">
-    .new-category
-        input.new-category__title(v-model="title")
-        textarea.new-category__description(v-model="description")
-        button.new-category__button(@click="append()") Create
+    .new-task
+        input.new-task__username(v-model="username")
+        input.new-task__email(v-model="email")
+        textarea.new-task__text(v-model="text")
+        button.new-task__button(@click="append()") Create
 </template>

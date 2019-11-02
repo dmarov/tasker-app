@@ -5,7 +5,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
 
     computed: {
-        ...mapGetters('categories', [
+        ...mapGetters('tasks', [
             'getSorting'
         ]),
         sort: {
@@ -14,14 +14,14 @@ export default {
             },
             set(value) {
                 this.setSorting([value]);
-                this.refreshCategories();
+                this.refreshTasks();
             },
         },
     },
     methods: {
-        ...mapActions('categories', [
+        ...mapActions('tasks', [
             'setSorting',
-            'refreshCategories',
+            'refreshTasks',
         ]),
     },
 };
@@ -30,6 +30,6 @@ export default {
 <template lang="pug">
     .sorting
         select(v-model='sort')
-            option(:value="'title,asc'") Title ascending
-            option(:value="'title,desc'") Title descending
+            option(:value="'username,asc'") Username ascending
+            option(:value="'username,desc'") Username descending
 </template>
