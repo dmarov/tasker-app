@@ -2,7 +2,7 @@
 
 namespace Model\Mappers;
 
-use Model\Objects\Message as MessageObject;
+use Model\Objects\Task as TaskObject;
 use Core\Exceptions\DB as BDException;
 use Latitude\QueryBuilder\QueryFactory;
 use function Latitude\QueryBuilder\field;
@@ -38,7 +38,7 @@ class Task {
         $stmt->execute($query->params());
 
         $messages = [];
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, MessageObject::class);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, TaskObject::class);
 
         while($row = $stmt->fetch()) {
             $messages[] = $row;
@@ -62,7 +62,7 @@ class Task {
         $stmt = $pdo->prepare($query->sql());
         $stmt->execute($query->params());
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, MessageObject::class);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, TaskObject::class);
         $message = $stmt->fetch();
 
         if ($message !== false) {

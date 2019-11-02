@@ -33,7 +33,7 @@ class Controller {
 
     public function getTask($ctx) {
 
-        $taskMapper = new \Model\Mappers\Message;
+        $taskMapper = new \Model\Mappers\Task;
         $task = $taskMapper->findById($ctx->params->id);
         if ($task === null)
             throw new HttpException('task not found', 404);

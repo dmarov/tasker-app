@@ -78,7 +78,7 @@ class Tasks {
         $messages = [];
 
         foreach ($items as $item) {
-            $messages[] = Message::get([
+            $messages[] = Task::get([
                 'item' => $item,
             ]);
         }
