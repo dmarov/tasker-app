@@ -103,6 +103,7 @@ export default {
 <template lang='pug'>
 
     .task
+        .task__tooltip(v-if="finished && !editable") Edited by admin
         input.task__username.text-input(v-model="username" :disabled="!editable")
         input.task__email.text-input(v-model="email" :disabled="!editable")
         textarea.task__text.text-input(v-model="text" :disabled="!editable")

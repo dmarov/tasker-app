@@ -27,6 +27,26 @@
     &__text {
         margin-left: 3px !important;
     }
+
+    position: relative;
+
+    &__tooltip {
+
+        position: absolute;
+        right: 0;
+        top: -20px;
+        z-index: 1;
+        visibility: hidden;
+        color: $col-white;
+        padding: 5px 7px;
+        border-radius: 4px;
+        background-color: $col-black;
+    }
+
+    &:hover &__tooltip {
+
+        visibility: visible;
+    }
 }
 
 .new-task {

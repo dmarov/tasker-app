@@ -12,8 +12,9 @@ CREATE TABLE `task` (
   `email` text NOT NULL,
   `text` text NOT NULL,
   `edited` tinyint(1) NOT NULL,
+  `status` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2019-11-02 09:47:57
+-- 2019-11-02 13:07:33
