@@ -1,4 +1,4 @@
 export default {
     tasks: undefined,
-    sort: ["usernanme,asc"],
+    sort: ["username,asc"],
 };

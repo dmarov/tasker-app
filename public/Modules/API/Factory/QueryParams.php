@@ -4,6 +4,11 @@ namespace Modules\API\Factory;
 
 class QueryParams {
 
+    const SORT_VALUES = [
+        'asc' => 'ASC',
+        'desc' => 'desc',
+    ];
+
     static function getOffset($default = 0) {
 
         $offset = isset($_GET['offset']) ? $_GET['offset'] : $default;
@@ -18,6 +23,11 @@ class QueryParams {
 
     static function getTasksOrder() {
 
-        return [ 'username' => 'ASC' ];
+        $sortParam = $_GET['sort'] ?? "username,asc";
+        $vars = explode(',', $sortParam);
+        $key = $vars[0] ?? 'username';
+        $value = $vars[1] ?? 'asc';
+
+        return [ $key => self::SORT_VALUES[$value] ?? 'ASC' ];
     }
 }

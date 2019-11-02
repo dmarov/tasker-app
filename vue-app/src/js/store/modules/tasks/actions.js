@@ -91,7 +91,7 @@ export default {
             if (response.ok)
                 context.dispatch('refreshTasks');
             else {
-            
+
                 new Noty({
                     text: 'unable to delete task',
                     type: "error",

@@ -955,7 +955,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var json
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  tasks: undefined,\n  sort: [\"usernanme,asc\"]\n});\n\n//# sourceURL=webpack:///./src/js/store/modules/tasks/state.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  tasks: undefined,\n  sort: [\"username,asc\"]\n});\n\n//# sourceURL=webpack:///./src/js/store/modules/tasks/state.js?");
 
 /***/ }),
 
