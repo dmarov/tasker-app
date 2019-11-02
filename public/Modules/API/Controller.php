@@ -55,14 +55,13 @@ class Controller {
             throw new HttpException($e->getMessage(), 422);
         }
 
-        $taskMapper = new \Model\Mappers\Message;
+        $taskMapper = new \Model\Mappers\Task;
 
-        $task = new \Model\Objects\Message;
-        $task->name = $bodyObj->name;
-        $task->surname = $bodyObj->surname;
-        $task->patronymic = $bodyObj->patronymic;
+        $task = new \Model\Objects\Task;
+        $task->username = $bodyObj->username;
         $task->email = $bodyObj->email;
-        $task->task = $bodyObj->task;
+        $task->text = $bodyObj->text;
+        $task->edited = false;
 
         try {
             $taskMapper->insert($task);

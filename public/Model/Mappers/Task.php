@@ -37,14 +37,14 @@ class Task {
         $stmt = $pdo->prepare($query->sql());
         $stmt->execute($query->params());
 
-        $messages = [];
+        $tasks = [];
         $stmt->setFetchMode(\PDO::FETCH_CLASS, TaskObject::class);
 
         while($row = $stmt->fetch()) {
-            $messages[] = $row;
+            $tasks[] = $row;
         }
 
-        return $messages;
+        return $tasks;
     }
 
     public function findById($id) {
@@ -63,16 +63,16 @@ class Task {
         $stmt->execute($query->params());
 
         $stmt->setFetchMode(\PDO::FETCH_CLASS, TaskObject::class);
-        $message = $stmt->fetch();
+        $task = $stmt->fetch();
 
-        if ($message !== false) {
-            return $message;
+        if ($task !== false) {
+            return $task;
         }
 
         return null;
     }
 
-    public function insert(TaskObject &$message) {
+    public function insert(TaskObject &$task) {
 
         $qb = new QueryFactory; 
         $qb = $qb->insert('task', [
@@ -94,7 +94,7 @@ class Task {
 
         $id = $pdo->lastInsertId();
 
-        $message = $this->findById($id);
+        $task = $this->findById($id);
     }
 
     public function getTotal() {
