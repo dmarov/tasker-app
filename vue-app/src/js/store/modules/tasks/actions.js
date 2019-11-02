@@ -48,7 +48,8 @@ export default {
             let response = await authfetch(link, options);
 
             if (response.ok) {
-                context.commit('patchTask', { id, patch });
+                let result = await response.json();
+                context.commit('setTask', { id, data: result });
             } else {
 
                 let result = await response.json();

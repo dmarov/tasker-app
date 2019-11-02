@@ -1,4 +1,5 @@
 import jsonpatch from 'json-patch';
+import Vue from 'vue';
 
 export default {
 
@@ -9,9 +10,16 @@ export default {
     patchTask(state, { id, patch }) {
 
         let items = state.tasks._embedded.items;
-        let task = items.find(item => item.id === id);
+        let index = items.findIndex(item => item.id === id)
+        let task = items[index];
         jsonpatch.apply(task, patch);
-        items[id] = task;
+        Vue.set(items, index, item);
+    },
+    setTask(state, { id, data }) {
+
+        let items = state.tasks._embedded.items;
+        let index = items.findIndex(item => item.id === id)
+        Vue.set(items, index, data);
     },
     setSorting(state, value) {
 
