@@ -51,8 +51,9 @@ export default {
                 context.commit('patchTask', { id, patch });
             } else {
 
+                let result = await response.json();
                 new Noty({
-                    text: "unable to patch task",
+                    text: result.errors[0].message,
                     type: "error",
                 }).show();
             }
@@ -62,7 +63,7 @@ export default {
             if (e.name == "AuthError") {
 
                 new Noty({
-                    text: e.message,
+                    message: e.message,
                     type: "error",
                 }).show();
 
@@ -92,8 +93,9 @@ export default {
                 context.dispatch('refreshTasks');
             else {
 
+                let result = await response.json();
                 new Noty({
-                    text: 'unable to delete task',
+                    text: result.errors[0].message,
                     type: "error",
                 }).show();
             }
@@ -129,7 +131,7 @@ export default {
         if (!response.ok) {
 
             new Noty({
-                text: "unable to append task",
+                text: result.errors[0].message,
                 type: "error",
             }).show();
         } else {
