@@ -1,4 +1,4 @@
-node_modules
-yarn-error.log
+vue-app/node_modules
+vue-app/yarn-error.log
 vendor
 configs/env.yml

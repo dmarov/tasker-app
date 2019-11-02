@@ -1,9 +1,5 @@
 DirectoryIndex index.php
 
-SetEnv PG_HOST pgsql95.local
-SetEnv PG_USER feedback
-SetEnv PG_DATABASE db_feedback
-SetEnv PG_PASSWORD 1234
 SetEnv HTTPS off
 
 RewriteEngine On

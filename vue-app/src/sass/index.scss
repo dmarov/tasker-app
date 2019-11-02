@@ -1,0 +1,64 @@
+@import "const/_colors.scss";
+@import "components/_menu.scss";
+@import "components/_content.scss";
+@import "components/_toolbar.scss";
+@import "components/_login-popup.scss";
+@import "components/_category.scss";
+@import "components/_pagination.scss";
+@import "components/_product.scss";
+@import "components/_sorting.scss";
+
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+body {
+    background-image: linear-gradient($col-lorange, $col-lyellow);
+    background-color: $col-white;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+
+    width: 1300px;
+    display: flex;
+    flex-direction: column;
+    color: $col-black;
+
+    .container__el_pointable {
+
+        cursor: pointer;
+    }
+
+    .container__el_nolink {
+
+        &:link {
+            text-decoration: inherit;
+            color: inherit;
+            cursor: inherit;
+        }
+
+        &:visited {
+            text-decoration: inherit;
+            color: inherit;
+            cursor: inherit;
+        }
+    }
+}
+
+.button {
+
+    color: $col-white;
+    background-color: $col-blue;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 5px outset $col-lblue;
+
+    &:hover {
+        color: $col-lgrey;
+    }
+}

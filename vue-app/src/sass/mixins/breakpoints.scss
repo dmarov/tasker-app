@@ -1,0 +1,6 @@
+@mixin break-max-width($width) {
+
+    @media only screen and (max-width: $width) {
+        @content;
+    }
+}
