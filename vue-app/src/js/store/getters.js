@@ -11,7 +11,7 @@ export default {
 
         return _ => {
 
-            let token = sessionStorage.getItem('token');
+            let token = localStorage.getItem('token');
 
             if (token) {
                 let str = atob(token);
@@ -28,7 +28,7 @@ export default {
 
         return _ => {
 
-            let token = sessionStorage.getItem('token');
+            let token = localStorage.getItem('token');
 
             if (token) {
                 let str = atob(token);

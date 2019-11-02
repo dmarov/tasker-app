@@ -16,7 +16,7 @@ export default {
         },
         logOut() {
 
-            sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
             location.reload();
         },
     },

@@ -63,7 +63,7 @@ export default {
             if (e.name == "AuthError") {
 
                 new Noty({
-                    message: e.message,
+                    text: e.message,
                     type: "error",
                 }).show();
 
