@@ -127,7 +127,7 @@ class Router {
     public function getAbsolutePath($name, $params = []) {
 
         $path = $this->getPath($name, $params);
-        $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
+        $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || getenv("HTTPS") === "on" ? 'https' : 'http';
         return $path ? $proto . '://' . $_SERVER['HTTP_HOST'] . $path : null;
     }
 }

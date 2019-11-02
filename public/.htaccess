@@ -1,7 +1,5 @@
 DirectoryIndex index.php
 
-SetEnv HTTPS off
-
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
