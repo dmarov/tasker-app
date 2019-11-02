@@ -140,8 +140,8 @@ class Controller {
         if (preg_match("/^Basic (?<token>.*)$/", $authorization, $matches)) {
 
             $token = $matches['token'];
-            $username = getenv("ADMIN_USERNAME");
-            $password = getenv("ADMIN_PASSWORD");
+            $username = ADMIN_USERNAME;
+            $password = ADMIN_PASSWORD;
             $hash = base64_encode("${username}:${password}");
 
             if ($token === $hash)
