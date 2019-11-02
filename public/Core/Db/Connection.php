@@ -9,13 +9,13 @@ class Connection {
 
     public function __construct() {
 
-        $host = getenv('PG_HOST');
-        $port = getenv('PG_PORT');
-        if ($port === false) $port = '5432';
-        $user = getenv('PG_USER');
-        $db = getenv('PG_DATABASE');
-        $password = getenv('PG_PASSWORD');
-        $dsn = "pgsql:host=${host};port=${port};dbname=${db};user=${user};password=${password}";
+        $host = getenv('DB_HOST');
+        $port = getenv('DB_PORT');
+        if ($port === false) $port = '3306';
+        $user = getenv('DB_USER');
+        $password = getenv('DB_PASSWORD');
+        $db = getenv('DB_NAME');
+        $dsn = "mysql:host=${host};port=${port};dbname=${db};user=${user};password=${password}";
         $pdo = new \PDO($dsn);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo = $pdo;
@@ -23,9 +23,8 @@ class Connection {
 
     public static function getInstance() {
 
-        if (!isset(static::$instance)) {
+        if (!isset(static::$instance))
             static::$instance = new static;
-        }
 
         return static::$instance;
     }

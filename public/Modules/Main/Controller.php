@@ -7,7 +7,7 @@ class Controller {
     public static function getIndex($ctx) {
 
         $router = \Core\Router::getInstance();
-        $path = $router->getAbsolutePath('api:messages');
+        $path = $router->getAbsolutePath('api:tasks');
 
         ob_start();
         include __DIR__ . '/html/index.php';

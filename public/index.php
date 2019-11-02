@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/load-env.php';
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
 
 error_reporting(E_ALL);
@@ -16,8 +17,8 @@ $api = new Modules\API\Controller;
 $router = Router::getInstance();
 
 $router->add("GET", "/", [ $main, 'getIndex' ]);
-$router->add("GET", "/api/tasks", [ $api, 'getTasks' ]);
-$router->add("GET", "/api/tasks/:id", [ $api, 'getTask' ]);
+$router->add("GET", "/api/tasks", [ $api, 'getTasks' ], "api:tasks");
+$router->add("GET", "/api/tasks/:id", [ $api, 'getTask' ], "api:task");
 $router->add("POST", "/api/tasks", [ $api, 'appendTask' ]);
 $router->add("PATCH", "/api/tasks/:id", [ $api, 'patchTask' ]);
 $router->start();
