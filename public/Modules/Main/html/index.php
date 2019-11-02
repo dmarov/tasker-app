@@ -7,5 +7,6 @@
     <body>
         <div id="app" api-link='<?= $path; ?>'></div>
     </body>
-    <script src='/js/index.js'></script>
+    <script src='/js/polyfills.js'></script>
+    <script src='/js/app.js'></script>
 </html> 

@@ -78,12 +78,6 @@ const config: webpack.Configuration = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            title: 'Storages App',
-            template: 'src/index.html',
-            filename: 'index.html',
-        }),
     ],
     resolve: {
         extensions: [ '.ts', '.js', '.vue', '.scss', '.css', '.json' ],
