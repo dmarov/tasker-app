@@ -1,4 +1,4 @@
 vue-app/node_modules
 vue-app/yarn-error.log
-public/vendor
-configs/env.yml
+vendor
+configs/env.json
