@@ -114,4 +114,29 @@ class Task {
         $result = $stmt->fetch();
         return (Integer)$result['total'];
     }
+
+    public function update(TaskObject &$task) {
+
+        $qb = new QueryFactory; 
+        $qb = $qb->update('task', [
+            'username' => $task->username,
+            'email' => $task->email,
+            'text' => $task->text,
+            'edited' => $task->edited,
+        ])->where(field('id')->eq($task->id));
+
+        $query = $qb->compile();
+
+        $pdo = \Core\Db\Connection::getInstance()
+            ->getPDO();
+        $stmt = $pdo->prepare($query->sql());
+        $result = $stmt->execute($query->params());
+
+        if (!$result)
+            throw new DBException('task update failed');
+
+        $id = $pdo->lastInsertId();
+
+        return $this->findById($task->id);
+    }
 }

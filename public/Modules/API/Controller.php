@@ -85,6 +85,8 @@ class Controller {
 
     public function patchTask($ctx) {
 
+        $this->checkAdmin();
+
         $taskMapper = new \Model\Mappers\Task;
         $task = $taskMapper->findById($ctx->params->id);
         if ($task === null)
@@ -117,6 +119,8 @@ class Controller {
         $task->text = $patchedTask->text ?? $task->text;
         $task->edited = $patchedTask->edited ?? $task->edited;
 
+        $task = $taskMapper->update($task);
+
         header('Content-Type: application/hal+json');
         $json = Factory\HAL\Task::get([
             'item' => $task,
@@ -124,4 +128,24 @@ class Controller {
         die(json_encode($json));
     }
 
+    private function checkAdmin() {
+
+        $headers = apache_request_headers();
+        $authorization = $headers['Authorization'] ?? '';
+
+        $matches = [];
+
+        if (preg_match("/^Basic (?<token>.*)$/", $authorization, $matches)) {
+
+            $token = $matches['token'];
+            $username = getenv("ADMIN_USERNAME");
+            $password = getenv("ADMIN_PASSWORD");
+            $hash = base64_encode("${username}:${password}");
+
+            if ($token === $hash)
+                return;
+        }
+
+        throw new HttpException('authorization failed', 401);
+    }
 }

@@ -50,29 +50,24 @@ class Router {
                     $function($ctx);
                 } catch (Exceptions\HTTP $e) {
 
-                    if (getenv("DEBUG")) {
-
-                        header('Content-Type: application/json');
-                        http_response_code($e->getHttpCode());
-                        die(json_encode([
-                            'errors' => [
-                                [
-                                    'message' => $e->getMessage(),
-                                    'httpCode' => $e->getHttpCode(),
-                                    'trace' => $e->getTrace(),
-                                    'file' => $e->getFile(),
-                                    'line' => $e->getLine(),
-                                ],
+                    header('Content-Type: application/json');
+                    http_response_code($e->getHttpCode());
+                    die(json_encode([
+                        'errors' => [
+                            [
+                                'message' => $e->getMessage(),
+                                'httpCode' => $e->getHttpCode(),
                             ],
-                        ]));
-                    }
+                        ],
+                    ]));
 
                 } catch (\Exception $e) {
 
+                    header('Content-Type: application/json');
+                    http_response_code(500);
+
                     if (getenv("DEBUG")) {
 
-                        header('Content-Type: application/json');
-                        http_response_code(500);
                         die(json_encode([
                             'errors' => [
                                 [
@@ -81,6 +76,16 @@ class Router {
                                     'trace' => $e->getTrace(),
                                     'file' => $e->getFile(),
                                     'line' => $e->getLine(),
+                                ],
+                            ],
+                        ]));
+                    } else {
+
+                        die(json_encode([
+                            'errors' => [
+                                [
+                                    'message' => $e->getMessage(),
+                                    'httpCode' => 500,
                                 ],
                             ],
                         ]));
