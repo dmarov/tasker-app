@@ -7,16 +7,7 @@ use Core\Exceptions\Validation as ValidationException;
 
 class Controller {
 
-    public function __construct() {
-
-        $router = \Core\Router::getInstance();
-
-        $router->add('GET', '/api/messages', [$this, 'getMessages'], 'api:messages');
-        $router->add('POST', '/api/messages', [$this, 'appendMessage']);
-        $router->add('GET', '/api/messages/:id', [$this, 'getMessage'], 'api:message');
-    }
-
-    public function getMessages($ctx) {
+    public function getTasks($ctx) {
 
         try {
 
@@ -53,7 +44,43 @@ class Controller {
         }
     }
 
-    public function appendMessage($ctx) {
+    public function getTask($ctx) {
+
+        try {
+
+            $messageMapper = new \Model\Mappers\Message;
+            $message = $messageMapper->findById($ctx->params->id);
+            if ($message === null)
+                throw new HttpException('message not found', 404);
+            header('Content-Type: application/hal+json');
+            $json = Factory\HAL\Message::get([
+                'item' => $message,
+            ]);
+            die(json_encode($json));
+
+        } catch (HttpException $e) {
+
+            header('Content-Type: application/json');
+            http_response_code($e->getHttpCode());
+            die(json_encode([
+                'errors' => [
+                    ['message' => $e->getMessage(), 'httpCode' => $e->getHttpCode()],
+                ],
+            ]));
+
+        } catch (\Exception $e) {
+
+            header('Content-Type: application/json');
+            http_response_code(500);
+            die(json_encode([
+                'errors' => [
+                    ['message' => $e->getMessage(), 'httpCode' => 500],
+                ],
+            ]));
+        }
+    }
+
+    public function appendTask($ctx) {
 
         try {
             $body = file_get_contents('php://input');
@@ -105,42 +132,6 @@ class Controller {
             die(json_encode([
                 'errors' => [
                     ['message' => $e->getMessage()],
-                ],
-            ]));
-        }
-    }
-
-    public function getMessage($ctx) {
-
-        try {
-
-            $messageMapper = new \Model\Mappers\Message;
-            $message = $messageMapper->findById($ctx->params->id);
-            if ($message === null)
-                throw new HttpException('message not found', 404);
-            header('Content-Type: application/hal+json');
-            $json = Factory\HAL\Message::get([
-                'item' => $message,
-            ]);
-            die(json_encode($json));
-
-        } catch (HttpException $e) {
-
-            header('Content-Type: application/json');
-            http_response_code($e->getHttpCode());
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage(), 'httpCode' => $e->getHttpCode()],
-                ],
-            ]));
-
-        } catch (\Exception $e) {
-
-            header('Content-Type: application/json');
-            http_response_code(500);
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage(), 'httpCode' => 500],
                 ],
             ]));
         }

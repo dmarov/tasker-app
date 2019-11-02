@@ -4,16 +4,7 @@ namespace Modules\Main;
 
 class Controller {
 
-    private $di;
-
-    public function __construct() {
-
-        $router = \Core\Router::getInstance();
-
-        $router->add('GET', '/', [$this, 'getMain']);
-    }
-
-    public static function getMain($ctx) {
+    public static function getIndex($ctx) {
 
         $router = \Core\Router::getInstance();
         $path = $router->getAbsolutePath('api:messages');

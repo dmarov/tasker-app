@@ -9,10 +9,15 @@ $loader->addPsr4('Modules\\', 'Modules/');
 $loader->addPsr4('Model\\', 'Model/');
 
 use Core\Router;
-use Core\Di;
 
-new Modules\Main\Controller;
-new Modules\API\Controller;
+$main = new Modules\Main\Controller;
+$api = new Modules\API\Controller;
 
 $router = Router::getInstance();
+
+$router->add("GET", "/", [ $main, 'getIndex' ]);
+$router->add("GET", "/api/tasks", [ $api, 'getTasks' ]);
+$router->add("GET", "/api/tasks/:id", [ $api, 'getTask' ]);
+$router->add("POST", "/api/tasks", [ $api, 'appendTask' ]);
+$router->add("PATCH", "/api/tasks/:id", [ $api, 'patchTask' ]);
 $router->start();
