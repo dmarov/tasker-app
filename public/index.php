@@ -17,6 +17,7 @@ $api = new Modules\API\Controller;
 $router = Router::getInstance();
 
 $router->add("GET", "/", [ $main, 'getIndex' ]);
+$router->add("GET", "/api/check-admin", [ $api, 'checkAdmin' ]);
 $router->add("GET", "/api/tasks", [ $api, 'getTasks' ], "api:tasks");
 $router->add("GET", "/api/tasks/:id", [ $api, 'getTask' ], "api:task");
 $router->add("POST", "/api/tasks", [ $api, 'appendTask' ]);

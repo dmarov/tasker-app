@@ -1,5 +1,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import authfetch from '../lib/authfetch.js';
+import Noty from 'noty';
 
 export default {
 
@@ -20,14 +22,24 @@ export default {
         ...mapActions([
             'setAuthToken',
         ]),
-        setUser() {
+        async setUser() {
 
             let token = btoa(this.username + ':' + this.password);
             this.setAuthToken(token);
 
-            this.$emit('close');
-            location.reload();
-        }
+            try {
+                let response = await authfetch("/api/check-admin");
+
+                this.$emit('close');
+                location.reload();
+            } catch (e) {
+
+                new Noty({
+                    text: "invalid credentials",
+                    type: "error"
+                }).show();
+            }
+        },
     },
     created() {
 

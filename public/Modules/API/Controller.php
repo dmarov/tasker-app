@@ -130,7 +130,7 @@ class Controller {
         die(json_encode($json));
     }
 
-    private function checkAdmin() {
+    public function checkAdmin() {
 
         $headers = apache_request_headers();
         $authorization = $headers['Authorization'] ?? '';
@@ -150,4 +150,5 @@ class Controller {
 
         throw new HttpException('authorization failed', 401);
     }
+
 }
