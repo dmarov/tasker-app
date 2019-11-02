@@ -7,7 +7,9 @@ use Core\Exceptions\DB as BDException;
 use Latitude\QueryBuilder\QueryFactory;
 use function Latitude\QueryBuilder\field;
 
-class Message {
+class Task {
+
+    private $tableName = "task";
 
     public function select($params) {
 
@@ -16,7 +18,7 @@ class Message {
 
         $qb = new QueryFactory; 
         $qb = $qb->select()
-            ->from('message');
+            ->from($this->tableName);
 
         $offset = $params['offset'] ?? null;
         $limit = $params['limit'] ?? null;
@@ -26,7 +28,7 @@ class Message {
                 ->limit($limit);
         }
 
-        $order = $params['order'] ?? ['creation_date' => 'DESC'];
+        $order = $params['order'] ?? ['username' => 'ASC'];
         foreach ($order as $key => $value) {
             $qb = $qb->orderBy($key, $value);
         }
@@ -49,7 +51,7 @@ class Message {
 
         $qb = new QueryFactory; 
         $qb = $qb->select()
-            ->from('message')
+            ->from($this->tableName)
             ->where(field('id')->eq($id))
             ->limit(1);
 
@@ -70,15 +72,14 @@ class Message {
         return null;
     }
 
-    public function insert(MessageObject &$message) {
+    public function insert(TaskObject &$message) {
 
         $qb = new QueryFactory; 
-        $qb = $qb->insert('message', [
-            'name' => $message->name,
-            'surname' => $message->surname,
-            'patronymic' => $message->patronymic,
-            'email' => $message->email,
-            'message' => $message->message,
+        $qb = $qb->insert('task', [
+            'username' => $task->username,
+            'email' => $task->email,
+            'text' => $task->text,
+            'edited' => $task->edited,
         ]);
 
         $query = $qb->compile();
@@ -89,7 +90,7 @@ class Message {
         $result = $stmt->execute($query->params());
 
         if (!$result)
-            throw new DBException('message insert failed');
+            throw new DBException('task insert failed');
 
         $id = $pdo->lastInsertId();
 
@@ -100,16 +101,17 @@ class Message {
 
         $qb = new QueryFactory; 
         $qb = $qb->select('COUNT(*) AS total')
-            ->from('message');
+            ->from($this->tableName);
 
         $query = $qb->compile();
 
         $pdo = \Core\Db\Connection::getInstance()
             ->getPDO();
+
         $stmt = $pdo->prepare($query->sql());
         $stmt->execute($query->params());
 
         $result = $stmt->fetch();
-        return $result['total'];
+        return (Integer)$result['total'];
     }
 }

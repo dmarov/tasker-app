@@ -16,8 +16,8 @@ class QueryParams {
         return (Integer)$limit;
     }
 
-    static function getMessagesOrder() {
+    static function getTasksOrder() {
 
-        return [ 'creation_date' => 'DESC' ];
+        return [ 'username' => 'ASC' ];
     }
 }

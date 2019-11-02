@@ -9,131 +9,73 @@ class Controller {
 
     public function getTasks($ctx) {
 
-        try {
+        $offset = Factory\QueryParams::getOffset();
+        $limit = Factory\QueryParams::getLimit();
+        $order = Factory\QueryParams::getTasksOrder();
 
-            $offset = Factory\QueryParams::getOffset();
-            $limit = Factory\QueryParams::getLimit();
-            $order = Factory\QueryParams::getMessagesOrder();
+        $taskMapper = new \Model\Mappers\Task;
+        $tasks = $taskMapper->select([
+            'offset' => $offset,
+            'limit' => $limit,
+            'order' => $order,
+        ]);
 
-            $messageMapper = new \Model\Mappers\Message;
-            $messages = $messageMapper->select([
-                'offset' => $offset,
-                'limit' => $limit,
-                'order' => $order,
-            ]);
+        header('Content-Type: application/hal+json');
+        $json = Factory\HAL\Tasks::get([
+            'items' => $tasks,
+            'offset' => $offset,
+            'limit' => $limit,
+            'total' => $taskMapper->getTotal(),
+        ]);
 
-            header('Content-Type: application/hal+json');
-            $json = Factory\HAL\Messages::get([
-                'items' => $messages,
-                'offset' => $offset,
-                'limit' => $limit,
-                'total' => $messageMapper->getTotal(),
-            ]);
-
-            die(json_encode($json));
-
-        } catch (\Exception $e) {
-
-            header('Content-Type: application/json');
-            http_response_code(500);
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage()],
-                ],
-            ]));
-        }
+        die(json_encode($json));
     }
 
     public function getTask($ctx) {
 
-        try {
-
-            $messageMapper = new \Model\Mappers\Message;
-            $message = $messageMapper->findById($ctx->params->id);
-            if ($message === null)
-                throw new HttpException('message not found', 404);
-            header('Content-Type: application/hal+json');
-            $json = Factory\HAL\Message::get([
-                'item' => $message,
-            ]);
-            die(json_encode($json));
-
-        } catch (HttpException $e) {
-
-            header('Content-Type: application/json');
-            http_response_code($e->getHttpCode());
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage(), 'httpCode' => $e->getHttpCode()],
-                ],
-            ]));
-
-        } catch (\Exception $e) {
-
-            header('Content-Type: application/json');
-            http_response_code(500);
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage(), 'httpCode' => 500],
-                ],
-            ]));
-        }
+        $taskMapper = new \Model\Mappers\Message;
+        $task = $taskMapper->findById($ctx->params->id);
+        if ($task === null)
+            throw new HttpException('task not found', 404);
+        header('Content-Type: application/hal+json');
+        $json = Factory\HAL\Task::get([
+            'item' => $task,
+        ]);
+        die(json_encode($json));
     }
 
     public function appendTask($ctx) {
 
+        $body = file_get_contents('php://input');
+
         try {
-            $body = file_get_contents('php://input');
+            $bodyObj = Factory\Filters\Body::filterMessage($body);
+        } catch(ValidationException $e) {
 
-            try {
-                $bodyObj = Factory\Filters\Body::filterMessage($body);
-            } catch(ValidationException $e) {
-
-                throw new HttpException($e->getMessage(), 422);
-            }
-
-            $messageMapper = new \Model\Mappers\Message;
-
-            $message = new \Model\Objects\Message;
-            $message->name = $bodyObj->name;
-            $message->surname = $bodyObj->surname;
-            $message->patronymic = $bodyObj->patronymic;
-            $message->email = $bodyObj->email;
-            $message->message = $bodyObj->message;
-
-            try {
-                $messageMapper->insert($message);
-            } catch(DBException $e) {
-                throw new HttpException($e->getMessage(), 500);
-            }
-
-            header('Content-Type: application/hal+json');
-
-            $result = Factory\HAL\Message::get([
-                'item' => $message,
-            ]);
-
-            die(json_encode($result));
-
-        } catch (HttpException $e) {
-
-            header('Content-Type: application/json');
-            http_response_code($e->getHttpCode());
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage()],
-                ],
-            ]));
-
-        } catch (\Exception $e) {
-
-            header('Content-Type: application/json');
-            http_response_code(500);
-            die(json_encode([
-                'errors' => [
-                    ['message' => $e->getMessage()],
-                ],
-            ]));
+            throw new HttpException($e->getMessage(), 422);
         }
+
+        $taskMapper = new \Model\Mappers\Message;
+
+        $task = new \Model\Objects\Message;
+        $task->name = $bodyObj->name;
+        $task->surname = $bodyObj->surname;
+        $task->patronymic = $bodyObj->patronymic;
+        $task->email = $bodyObj->email;
+        $task->task = $bodyObj->task;
+
+        try {
+            $taskMapper->insert($task);
+        } catch(DBException $e) {
+            throw new HttpException($e->getMessage(), 500);
+        }
+
+        header('Content-Type: application/hal+json');
+
+        $result = Factory\HAL\Task::get([
+            'item' => $task,
+        ]);
+
+        die(json_encode($result));
     }
 }

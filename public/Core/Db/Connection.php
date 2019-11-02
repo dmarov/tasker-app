@@ -15,8 +15,8 @@ class Connection {
         $user = getenv('DB_USER');
         $password = getenv('DB_PASSWORD');
         $db = getenv('DB_NAME');
-        $dsn = "mysql:host=${host};port=${port};dbname=${db};user=${user};password=${password}";
-        $pdo = new \PDO($dsn);
+        $dsn = "mysql:host=${host};port=${port};dbname=${db}";
+        $pdo = new \PDO($dsn, $user, $password);
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo = $pdo;
     }

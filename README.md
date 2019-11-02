@@ -9,5 +9,5 @@
 ## Deployment
 
 - run composer install
-- edit configs/env.yml
+- edit configs/env.yml from configs/env.default.yml
 - set web root to public

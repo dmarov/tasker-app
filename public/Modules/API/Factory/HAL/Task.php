@@ -4,14 +4,14 @@ namespace Modules\API\Factory\HAL;
 
 use Core\Router;
 
-class Message {
+class Task {
 
     public static function getLinks($params) {
 
         $item = $params['item'];
         $router = Router::getInstance();
         $routes = [
-            'self' => $router->getAbsolutePath('api:message', [
+            'self' => $router->getAbsolutePath('api:task', [
                 'id' => $item->id
             ]),
         ];
@@ -34,11 +34,10 @@ class Message {
 
         return (Object)[
             'id' => $item->id,
-            'name' => $item->name,
-            'surname' => $item->surname,
-            'patronymic' => $item->patronymic,
-            'message' => $item->message,
-            'creationDate' => $item->creation_date,
+            'username' => $item->username,
+            'email' => $item->email,
+            'text' => $item->text,
+            'edited' => $item->edited,
             '_links' => self::getLinks([
                 'item' => $item,
             ]),

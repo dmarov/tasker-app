@@ -45,7 +45,47 @@ class Router {
                         $ctx->params->{$keyMatches[1]} = $value;
                 }
 
-                $function($ctx);
+                try {
+
+                    $function($ctx);
+                } catch (Exceptions\HTTP $e) {
+
+                    if (getenv("DEBUG")) {
+
+                        header('Content-Type: application/json');
+                        http_response_code($e->getHttpCode());
+                        die(json_encode([
+                            'errors' => [
+                                [
+                                    'message' => $e->getMessage(),
+                                    'httpCode' => $e->getHttpCode(),
+                                    'trace' => $e->getTrace(),
+                                    'file' => $e->getFile(),
+                                    'line' => $e->getLine(),
+                                ],
+                            ],
+                        ]));
+                    }
+
+                } catch (\Exception $e) {
+
+                    if (getenv("DEBUG")) {
+
+                        header('Content-Type: application/json');
+                        http_response_code(500);
+                        die(json_encode([
+                            'errors' => [
+                                [
+                                    'message' => $e->getMessage(),
+                                    'httpCode' => 500,
+                                    'trace' => $e->getTrace(),
+                                    'file' => $e->getFile(),
+                                    'line' => $e->getLine(),
+                                ],
+                            ],
+                        ]));
+                    }
+                }
             }
         }
     }
