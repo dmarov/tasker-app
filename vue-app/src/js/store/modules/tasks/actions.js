@@ -7,12 +7,14 @@ export default {
 
         let link = context.rootGetters.getParam('api-link');
         let url = new URL(link, location.origin);
-        url.searchParams.set('page', page - 1);
+        let limit = 3;
+        url.searchParams.set('offset', (page - 1) * limit );
+        url.searchParams.set('limit', limit );
         url.searchParams.set('sort', context.getters.getSorting());
 
         try {
 
-            let response = await authfetch(url);
+            let response = await fetch(url);
             let result = await response.json();
             context.commit('setTasks', result);
 
@@ -70,7 +72,7 @@ export default {
     async refreshTasks(context) {
 
         let tasks = context.getters.getTasks();
-        let page = tasks.page.number;
+        let page = Math.ceil(tasks.total / tasks.limit);
         context.dispatch('setTasksPage', page + 1);
     },
     async deleteTask(context, id) {
@@ -108,7 +110,7 @@ export default {
             } else throw e;
         }
     },
-    async appendTask(context, { title, description }) {
+    async appendTask(context, fields) {
 
         let link = context.rootGetters.getParam('api-link');
         let url = new URL(link, location.origin);
@@ -118,13 +120,10 @@ export default {
             headers: new Headers({
                 "content-type": "application/json",
             }),
-            body: JSON.stringify({
-                title,
-                description,
-            }),
+            body: JSON.stringify(fields),
         };
 
-        let response = await authfetch(url, options);
+        let response = await fetch(url, options);
         let result = await response.json();
 
         if (!response.ok) {
