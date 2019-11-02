@@ -13,9 +13,6 @@ const config: webpack.Configuration = merge(common, {
                 extractComments: true,
             }),
         ],
-        splitChunks: {
-            chunks: 'all',
-        },
     },
 });
 
