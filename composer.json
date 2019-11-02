@@ -1,0 +1,13 @@
+{
+    "name": "md/tasker-app",
+    "authors": [
+        {
+            "name": "Dmitry Marov",
+            "email": "d.marov94@gmail.com"
+        }
+    ],
+    "require": {
+        "latitude/latitude": "^3.2",
+        "justinrainbow/json-schema": "^5.2"
+    }
+}

@@ -1,0 +1,25 @@
+type: object
+properties:
+  name:
+    type: string
+    pattern: '^\p{L}{1,100}'
+  surname:
+    type: string
+    pattern: '^\p{L}{1,100}'
+  patronymic:
+    type: string
+    pattern: '^\p{L}{1,100}'
+  email:
+    type: string
+    pattern: '^(.*)+@(.*)+\.(.*)+$'
+  message:
+    type: string
+    pattern: '^\p{L}{0,1000}'
+required:
+  - name
+  - surname
+  - patronymic
+  - email
+  - message
+additionalProperties: false,
+
