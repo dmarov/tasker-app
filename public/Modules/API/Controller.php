@@ -67,6 +67,7 @@ class Controller {
         $task->email = $bodyObj->email;
         $task->text = $bodyObj->text;
         $task->edited = false;
+        $task->status = "in progress";
 
         try {
             $taskMapper->insert($task);
@@ -117,7 +118,8 @@ class Controller {
         $task->username = $patchedTask->username ?? $task->username;
         $task->email = $patchedTask->email ?? $task->email;
         $task->text = $patchedTask->text ?? $task->text;
-        $task->edited = $patchedTask->edited ?? $task->edited;
+        $task->status = $patchedTask->status ?? $task->status;
+        $task->edited = true;
 
         $task = $taskMapper->update($task);
 

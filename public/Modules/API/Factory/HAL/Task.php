@@ -38,6 +38,7 @@ class Task {
             'email' => $item->email,
             'text' => $item->text,
             'edited' => (Boolean)$item->edited,
+            'status' => $item->status,
             '_links' => self::getLinks([
                 'item' => $item,
             ]),

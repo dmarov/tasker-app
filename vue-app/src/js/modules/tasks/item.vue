@@ -15,8 +15,14 @@ export default {
         ...mapGetters('tasks', [
             'getTask'
         ]),
+        ...mapGetters([
+            'getUserName'
+        ]),
         task() {
             return this.getTask(this.id);
+        },
+        loginUser() {
+            return this.getUserName();
         },
         username: {
             get() {
@@ -54,6 +60,27 @@ export default {
                 });
             },
         },
+        finished: {
+            get() {
+                return this.task.status === "finished";
+            },
+            set(value) {
+
+                if (value) {
+
+                    this.patchTask({
+                        id: this.id,
+                        patch: [{ op: 'add', path: "/status", value: "finished" }],
+                    });
+                } else {
+
+                    this.patchTask({
+                        id: this.id,
+                        patch: [{ op: 'add', path: "/status", value: "in progress" }],
+                    });
+                }
+            },
+        },
     },
     methods: {
         ...mapActions('tasks', [
@@ -79,6 +106,7 @@ export default {
         input.task__username.text-input(v-model="username" :disabled="!editable")
         input.task__email.text-input(v-model="email" :disabled="!editable")
         textarea.task__text.text-input(v-model="text" :disabled="!editable")
-        button.button.task__button.task__button_delete(@click='toggleEdit()') {{ editable == true ? 'finish editing' : 'edit' }}
+        input(type="checkbox" v-model="finished" :disabled="!loginUser")
+        button.button.task__button.task__button_delete(@click='toggleEdit()' v-if="loginUser") {{ editable == true ? 'finish editing' : 'edit' }}
 
 </template>

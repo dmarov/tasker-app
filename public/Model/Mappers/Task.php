@@ -80,6 +80,7 @@ class Task {
             'email' => $task->email,
             'text' => $task->text,
             'edited' => $task->edited,
+            'status' => $task->status,
         ]);
 
         $query = $qb->compile();
@@ -123,6 +124,7 @@ class Task {
             'email' => $task->email,
             'text' => $task->text,
             'edited' => $task->edited,
+            'status' => $task->status,
         ])->where(field('id')->eq($task->id));
 
         $query = $qb->compile();

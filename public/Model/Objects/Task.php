@@ -9,4 +9,5 @@ class Task {
     public $email;
     public $text;
     public $edited;
+    public $status;
 }
