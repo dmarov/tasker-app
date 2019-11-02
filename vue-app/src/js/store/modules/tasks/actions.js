@@ -72,7 +72,7 @@ export default {
     async refreshTasks(context) {
 
         let tasks = context.getters.getTasks();
-        let page = Math.ceil(tasks.total / tasks.limit);
+        let page = Math.floor(tasks.offset / tasks.limit);
         context.dispatch('setTasksPage', page + 1);
     },
     async deleteTask(context, id) {

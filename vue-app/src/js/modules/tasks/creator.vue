@@ -30,8 +30,8 @@ export default {
 </script>
 <template lang="pug">
     .new-task
-        input.new-task__username(v-model="username")
-        input.new-task__email(v-model="email")
-        textarea.new-task__text(v-model="text")
-        button.new-task__button(@click="append()") Create
+        input.text-input.new-task__username(v-model="username")
+        input.text-input.new-task__email(v-model="email")
+        textarea.text-input.new-task__text(v-model="text")
+        button.button.new-task__button(@click="append()") Create
 </template>

@@ -1,11 +1,11 @@
 @import "const/_colors.scss";
-@import "components/_menu.scss";
-@import "components/_content.scss";
 @import "components/_toolbar.scss";
-@import "components/_login-popup.scss";
 @import "components/_tasks.scss";
-@import "components/_pagination.scss";
+@import "components/_text-input.scss";
 @import "components/_sorting.scss";
+@import "components/_pagination.scss";
+// @import "components/_menu.scss";
+// @import "components/_login-popup.scss";
 
 * {
     box-sizing: border-box;
@@ -14,6 +14,7 @@
 
 body {
 
+    margin: 0;
 }
 
 .container {
@@ -22,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     color: $col-black;
+    margin: 0 auto;
 
     .container__el_pointable {
 
@@ -46,11 +48,10 @@ body {
 
 .button {
 
-    color: $col-white;
     font-weight: bold;
     text-transform: uppercase;
 
     &:hover {
-        color: $col-lgrey;
+        background-color: $col-lgrey;
     }
 }

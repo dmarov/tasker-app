@@ -76,9 +76,9 @@ export default {
 <template lang='pug'>
 
     .task
-        input.task__username(v-model="username" :disabled="!editable")
-        input.task__email(v-model="email" :disabled="!editable")
-        textarea.task__text(v-model="text" :disabled="!editable")
-        button.task__button.task__button_delete(@click='toggleEdit()') {{ editable == true ? 'finish editing' : 'edit' }}
+        input.task__username.text-input(v-model="username" :disabled="!editable")
+        input.task__email.text-input(v-model="email" :disabled="!editable")
+        textarea.task__text.text-input(v-model="text" :disabled="!editable")
+        button.button.task__button.task__button_delete(@click='toggleEdit()') {{ editable == true ? 'finish editing' : 'edit' }}
 
 </template>

@@ -1,31 +1,51 @@
-.categories {
+.tasks {
 
     padding-top: 15px;
 }
 
-.category {
+.task {
 
     display: flex;
     padding-bottom: 5px;
 
-    &__description {
+    &__text {
         flex-grow: 1;
     }
 
     &__button {
         width: 7em;
     }
+
+    &__username {
+        margin-left: 3px !important;
+    }
+
+    &__email {
+        margin-left: 3px !important;
+    }
+
+    &__text {
+        margin-left: 3px !important;
+    }
 }
 
-.new-category {
+.new-task {
 
     display: flex;
 
-    &__description {
+    &__text {
         flex-grow: 1;
     }
 
-    &__button {
-        width: 7em * 3;
+    &__username {
+        margin-left: 3px !important;
+    }
+
+    &__email {
+        margin-left: 3px !important;
+    }
+
+    &__text {
+        margin-left: 3px !important;
     }
 }

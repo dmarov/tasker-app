@@ -8,7 +8,7 @@ import Noty from 'noty';
 import "noty/src/noty.scss";
 import "noty/src/themes/sunset.scss";
 import VueRouter from 'vue-router';
-// import '../sass/index.scss';
+import '../sass/index.scss';
 import TasksRoute from './modules/tasks';
 
 Noty.overrideDefaults({

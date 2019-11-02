@@ -23,13 +23,13 @@
         color: $col-black;
 
         &_active {
-            background-color: $col-lblue;
-            color: $col-white;
+            background-color: $col-lgrey;
             font-weight: bold;
         }
     }
 
     &__link {
+
         width: 100%;
         height: 100%;
         display: flex;
