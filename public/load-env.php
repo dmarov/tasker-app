@@ -1,5 +1,5 @@
 <?php
-$envFile = __DIR__ ."/../configs/env.json";
+$envFile = __DIR__ ."/configs/env.json";
 
 if (file_exists($envFile)) {
 
