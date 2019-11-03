@@ -28,7 +28,7 @@ export default {
             this.setAuthToken(token);
 
             try {
-                let response = await authfetch("/api/check-admin");
+                let response = await authfetch("/api/check-admin", {method: "POST"});
 
                 this.$emit('close');
                 location.reload();

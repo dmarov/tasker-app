@@ -36,7 +36,7 @@ export default {
         let link = task._links.self.href;
 
         let options = {
-            method: 'PATCH',
+            method: 'POST',
             headers: new Headers({
                 "content-type": "application/json-patch+json",
             }),
@@ -76,42 +76,6 @@ export default {
         let tasks = context.getters.getTasks();
         let page = Math.floor(tasks.offset / tasks.limit);
         context.dispatch('setTasksPage', page + 1);
-    },
-    async deleteTask(context, id) {
-
-        let task = context.getters.getTask(id);
-        let link = task._links.self.href;
-
-        let options = {
-            method: 'DELETE',
-        };
-
-        try {
-
-            let response = await authfetch(link, options);
-
-            if (response.ok)
-                context.dispatch('refreshTasks');
-            else {
-
-                let result = await response.json();
-                new Noty({
-                    text: result.errors[0].message,
-                    type: "error",
-                }).show();
-            }
-
-        } catch(e) {
-
-            if (e.name == "AuthError") {
-
-                new Noty({
-                    text: e.message,
-                    type: "error",
-                }).show();
-
-            } else throw e;
-        }
     },
     async appendTask(context, fields) {
 
