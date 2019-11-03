@@ -30,8 +30,8 @@ export default {
 </script>
 <template lang="pug">
     .new-task
-        input.text-input.new-task__username(v-model="username" placeholder="username")
-        input.text-input.new-task__email(v-model="email" placeholder="email")
-        textarea.text-input.new-task__text(v-model="text" placeholder="text")
+        input.text-input.new-task__username(v-model.lazy="username" placeholder="username")
+        input.text-input.new-task__email(v-model.lazy="email" placeholder="email")
+        textarea.text-input.new-task__text(v-model.lazy="text" placeholder="text")
         button.button.new-task__button(@click="append()") Create
 </template>

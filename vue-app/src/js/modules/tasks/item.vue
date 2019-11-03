@@ -106,9 +106,9 @@ export default {
         .task__tooltip(v-if="(task.edited || finished) && !editable")
             div(v-if="task.edited") Edited by admin
             div(v-if="finished") Finished
-        input.task__username.text-input(v-model="username" :disabled="!editable")
-        input.task__email.text-input(v-model="email" :disabled="!editable")
-        textarea.task__text.text-input(v-model="text" :disabled="!editable")
+        input.task__username.text-input(v-model.lazy="username" :disabled="!editable")
+        input.task__email.text-input(v-model.lazy="email" :disabled="!editable")
+        textarea.task__text.text-input(v-model.lazy="text" :disabled="!editable")
         input(type="checkbox" v-model="finished" :disabled="!loginUser" v-if="loginUser")
         button.button.task__button.task__button_delete(@click='toggleEdit()' v-if="loginUser") {{ editable == true ? 'finish editing' : 'edit' }}
 
