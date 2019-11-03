@@ -23,6 +23,10 @@ export default {
                 email: this.email,
                 text: this.text,
             });
+
+            this.username = '';
+            this.email = '';
+            this.text = '';
         },
     },
 };
